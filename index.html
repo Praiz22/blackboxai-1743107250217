@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latter Glory Academy - Student Result Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-poppins bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-red-600">Latter Glory Academy - Student Result Generator</h1>
+        
+        <!-- Input Form -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Student Information</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="studentName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Class</label>
+                    <select id="studentClass" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Select Class</option>
+                        <option value="JSS1">JSS 1</option>
+                        <option value="JSS2">JSS 2</option>
+                        <option value="JSS3">JSS 3</option>
+                        <option value="SSS1">SSS 1</option>
+                        <option value="SSS2">SSS 2</option>
+                        <option value="SSS3">SSS 3</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                    <select id="studentGender" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Registration Number</label>
+                    <input type="text" id="regNumber" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Passport Photograph</label>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <img id="photoPreview" src="https://via.placeholder.com/150" alt="Student Photo" class="w-24 h-24 rounded-full object-cover border-2 border-gray-300">
+                        </div>
+                        <div class="flex-1">
+                            <input type="file" id="studentPhoto" accept="image/*" class="hidden">
+                            <button type="button" onclick="document.getElementById('studentPhoto').click()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                <i class="fas fa-camera mr-2"></i>Upload Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Subject Scores</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border" id="subjectsTable">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="py-2 px-4 border">Subject</th>
+                            <th class="py-2 px-4 border">C.A (0-40)</th>
+                            <th class="py-2 px-4 border">Exam (0-60)</th>
+                            <th class="py-2 px-4 border">Total</th>
+                            <th class="py-2 px-4 border">Grade</th>
+                            <th class="py-2 px-4 border">Remark</th>
+                            <th class="py-2 px-4 border">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subjectsBody">
+                        <!-- Subjects will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4 flex justify-between">
+                <button onclick="addSubject()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                    <i class="fas fa-plus mr-2"></i>Add Subject
+                </button>
+                <button onclick="generateReport()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    <i class="fas fa-file-alt mr-2"></i>Generate Report
+                </button>
+            </div>
+        </div>
+        
+        <!-- Report Preview (initially hidden) -->
+        <div id="reportPreview" class="hidden bg-white rounded-lg shadow-md p-6 print:p-0">
+            <div class="report-header">
+                <img src="https://www.lattergloryacademy.com.ng/wp-content/uploads/2023/05/cropped-Logo-1-192x192.png" alt="School Logo" class="report-logo mx-auto">
+                <h1 class="text-2xl font-bold">LATTER GLORY ACADEMY</h1>
+                <p class="text-sm">Website: www.lattergloryacademy.com.ng</p>
+                <p class="text-sm">Phone: +2348162873036, +23441218224</p>
+                <p class="text-sm">Email: thelattergloryacademy@gmail.com</p>
+            </div>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-xl font-bold uppercase">Student Result Report</h2>
+                <p class="text-sm">Term: Second Term 2023/2024 Academic Session</p>
+            </div>
+            
+            <!-- Rest of report content will be generated here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
